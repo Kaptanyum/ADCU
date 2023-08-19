@@ -1,0 +1,4 @@
+stm32f4xx_hal_msp.c:50:6:HAL_MspInit	1
+stm32f4xx_hal_msp.c:66:6:HAL_MspDeInit	1
+stm32f4xx_hal_msp.c:77:6:HAL_PPP_MspInit	1
+stm32f4xx_hal_msp.c:88:6:HAL_PPP_MspDeInit	1
