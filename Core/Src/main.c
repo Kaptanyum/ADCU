@@ -3,8 +3,30 @@
 #include <stdint.h>
 #include <main.h>
 
+/*	TO DO LIST
 
-uint16_t distance_1, distance_2;
+	--> HCSR04 DRIVER
+	--> IR DRIVER
+	--> MPU6050 IMU DRIVER	-> RAW DATA
+	--> NEO-6M GPS DRIVER	-> RAW DATA
+
+	--> GPIO DRIVER
+	--> I2C DRIVER
+	--> PWM DRIVER
+	--> UART DRIVER
+	--> CAN DRIVER
+
+	--> DMA DRIVER
+	--> FLASH DRIVER
+
+	--> HCSR04 CAPTURE COMPARE INTERRUPT DRIVER UPGRADE
+	--> HCSR04 MULTI DATA READING
+	--> HCSR04 + MOTOR FUSION
+	--> IMU + GPS SENSOR FUSION
+
+ * */
+
+uint16_t distance;
 
 
 void SystemClock_Config(void);
@@ -19,8 +41,7 @@ int main(void)
 
 	while (1)
 	{
-		distance_1 = HCSR04_Read(&htim2);
-//		distance_2 = HCSR04_Read();
+		distance = HCSR04_Read(&htim2);
 	}
 }
 
