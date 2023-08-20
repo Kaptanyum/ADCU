@@ -1,6 +1,3 @@
-#include <stm32f411xe.h>
-#include <stm32f4xx_hal.h>
-#include <stdint.h>
 #include <main.h>
 
 /*	TO DO LIST
@@ -26,9 +23,11 @@
 
  * */
 
+
 uint16_t distance;
 
 
+void PeripInit(void);
 void SystemClock_Config(void);
 
 
@@ -36,8 +35,7 @@ int main(void)
 {
 	HAL_Init();
 	SystemClock_Config();
-	TIM2_Init();
-	GPIO_Init();
+	PeripInit();
 
 	while (1)
 	{
@@ -45,6 +43,13 @@ int main(void)
 	}
 }
 
+void PeripInit(void)
+{
+	TIM2_Init();
+	GPIO_Init();
+	I2C1_Init();
+	MPU6050_Init(&hi2c1);
+}
 
 void SystemClock_Config(void)
 {

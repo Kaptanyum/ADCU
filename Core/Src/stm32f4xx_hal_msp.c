@@ -51,10 +51,9 @@ void HAL_MspInit(void)
 {
 	__HAL_RCC_SYSCFG_CLK_ENABLE();
 	__HAL_RCC_PWR_CLK_ENABLE();
+	__HAL_RCC_TIM2_CLK_ENABLE();
 
 	HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_0);
-
-	__HAL_RCC_TIM2_CLK_ENABLE();
 }
 
 /**
@@ -90,16 +89,16 @@ void HAL_PPP_MspDeInit(void)
 
 }
 
-/**
-  * @}
-  */
+void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
+{
+	__HAL_RCC_I2C1_CLK_ENABLE();
 
-/**
-  * @}
-  */
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-/**
-  * @}
-  */
-
-
+    GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+}

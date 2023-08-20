@@ -4,7 +4,6 @@
 
 extern TIM_HandleTypeDef htim2;
 
-
 void TIM2_Init(void);
 
 

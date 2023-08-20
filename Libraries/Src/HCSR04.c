@@ -1,10 +1,6 @@
 /* HCSR04 DISTANCE MEASUREMENT SENSOR */
 
-
-#include <stm32f4xx_hal.h>
-#include <stdint.h>
-#include <tim.h>
-#include <HCSR04.h>
+#include <hcsr04.h>
 
 static TIM_HandleTypeDef *_htim;
 

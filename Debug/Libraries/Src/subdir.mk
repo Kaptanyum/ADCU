@@ -5,21 +5,24 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Libraries/Src/HCSR04.c \
 ../Libraries/Src/gpio.c \
+../Libraries/Src/hcsr04.c \
 ../Libraries/Src/i2c.c \
+../Libraries/Src/mpu6050.c \
 ../Libraries/Src/tim.c 
 
 OBJS += \
-./Libraries/Src/HCSR04.o \
 ./Libraries/Src/gpio.o \
+./Libraries/Src/hcsr04.o \
 ./Libraries/Src/i2c.o \
+./Libraries/Src/mpu6050.o \
 ./Libraries/Src/tim.o 
 
 C_DEPS += \
-./Libraries/Src/HCSR04.d \
 ./Libraries/Src/gpio.d \
+./Libraries/Src/hcsr04.d \
 ./Libraries/Src/i2c.d \
+./Libraries/Src/mpu6050.d \
 ./Libraries/Src/tim.d 
 
 
@@ -30,7 +33,7 @@ Libraries/Src/%.o Libraries/Src/%.su Libraries/Src/%.cyclo: ../Libraries/Src/%.c
 clean: clean-Libraries-2f-Src
 
 clean-Libraries-2f-Src:
-	-$(RM) ./Libraries/Src/HCSR04.cyclo ./Libraries/Src/HCSR04.d ./Libraries/Src/HCSR04.o ./Libraries/Src/HCSR04.su ./Libraries/Src/gpio.cyclo ./Libraries/Src/gpio.d ./Libraries/Src/gpio.o ./Libraries/Src/gpio.su ./Libraries/Src/i2c.cyclo ./Libraries/Src/i2c.d ./Libraries/Src/i2c.o ./Libraries/Src/i2c.su ./Libraries/Src/tim.cyclo ./Libraries/Src/tim.d ./Libraries/Src/tim.o ./Libraries/Src/tim.su
+	-$(RM) ./Libraries/Src/gpio.cyclo ./Libraries/Src/gpio.d ./Libraries/Src/gpio.o ./Libraries/Src/gpio.su ./Libraries/Src/hcsr04.cyclo ./Libraries/Src/hcsr04.d ./Libraries/Src/hcsr04.o ./Libraries/Src/hcsr04.su ./Libraries/Src/i2c.cyclo ./Libraries/Src/i2c.d ./Libraries/Src/i2c.o ./Libraries/Src/i2c.su ./Libraries/Src/mpu6050.cyclo ./Libraries/Src/mpu6050.d ./Libraries/Src/mpu6050.o ./Libraries/Src/mpu6050.su ./Libraries/Src/tim.cyclo ./Libraries/Src/tim.d ./Libraries/Src/tim.o ./Libraries/Src/tim.su
 
 .PHONY: clean-Libraries-2f-Src
 
