@@ -2,13 +2,13 @@
 
 /*	TO DO LIST
 
-	--> HCSR04 DRIVER
+X	--> HCSR04 DRIVER
 	--> IR DRIVER
-	--> MPU6050 IMU DRIVER	-> RAW DATA
+X	--> MPU6050 IMU DRIVER	-> RAW DATA
 	--> NEO-6M GPS DRIVER	-> RAW DATA
 
-	--> GPIO DRIVER
-	--> I2C DRIVER
+X	--> GPIO DRIVER
+X	--> I2C DRIVER
 	--> PWM DRIVER
 	--> UART DRIVER
 	--> CAN DRIVER
@@ -21,10 +21,11 @@
 	--> HCSR04 + MOTOR FUSION
 	--> IMU + GPS SENSOR FUSION
 
- * */
+*/
 
 
 uint16_t distance;
+MPU6050_Raw _MPU6050_Raw;
 
 
 void PeripInit(void);
@@ -40,6 +41,10 @@ int main(void)
 	while (1)
 	{
 		distance = HCSR04_Read(&htim2);
+		MPU6050_ReadAccel(&hi2c1, &_MPU6050_Raw);
+		MPU6050_ReadGyro(&hi2c1, &_MPU6050_Raw);
+		MPU6050_ReadTemp(&hi2c1, &_MPU6050_Raw);
+		HAL_Delay(100);
 	}
 }
 
