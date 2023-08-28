@@ -2,31 +2,54 @@
 
 #include <hcsr04.h>
 
-static TIM_HandleTypeDef *_htim;
+uint16_t IC_Val1 = 0;
+uint16_t IC_Val2 = 0;
+uint16_t IC_Diff = 0;
+uint8_t Pol_Flg = 0;
+uint8_t Distance  = 0;
 
-uint16_t HCSR04_val1 = 0;
-uint16_t HCSR04_val2 = 0;
-uint16_t HCSR04_distance = 0;
+void HCSR04_Distance(TIM_HandleTypeDef* htim){
+	if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
+		{
+			if (Pol_Flg == 0)
+			{
+				IC_Val1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+				Pol_Flg = 1;
 
-uint16_t HCSR04_Read(TIM_HandleTypeDef *htim)
+				__HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_FALLING);
+			}
+
+			else if (Pol_Flg == 1)
+			{
+				IC_Val2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+				__HAL_TIM_SET_COUNTER(htim, 0);
+
+				if (IC_Val2 > IC_Val1)
+				{
+					IC_Diff = IC_Val2-IC_Val1;
+				}
+
+				else if (IC_Val1 > IC_Val2)
+				{
+					IC_Diff = (0xffff - IC_Val1) + IC_Val2;
+				}
+
+				Distance = IC_Diff * 0.034 / 2;
+				Pol_Flg = 0;
+
+				__HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_RISING);
+				__HAL_TIM_DISABLE_IT(&htim1, TIM_IT_CC1);
+			}
+		}
+}
+
+void HCSR04_Read(void)
 {
-	_htim = htim;
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
-	HAL_Delay(2);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
 	HAL_Delay(10);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
 
-	while(!(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1)));
-	HAL_TIM_Base_Start(_htim);
-	HCSR04_val1 = __HAL_TIM_GET_COUNTER(_htim);
-	while((HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1)));
-	HCSR04_val2 = __HAL_TIM_GET_COUNTER(_htim);
-	HCSR04_distance = (((HCSR04_val2 - HCSR04_val1)*2) / 58);
-	HAL_TIM_Base_Stop(_htim);
-	HAL_Delay(60);
-
-	return HCSR04_distance;
+	__HAL_TIM_ENABLE_IT(&htim1, TIM_IT_CC1);
 }
 
 /*

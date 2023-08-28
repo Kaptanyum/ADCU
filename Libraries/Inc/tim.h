@@ -2,9 +2,11 @@
 #define INC_TIM_H_
 
 
-extern TIM_HandleTypeDef htim2;
+#include <stm32f4xx_hal.h>
 
-void TIM2_Init(void);
+extern TIM_HandleTypeDef htim1;
+
+void TIM1_Init(void);
 
 
 #endif /* INC_TIM_H_ */

@@ -10,12 +10,12 @@
 /* MCU CONFIG LIBRARIES */
 #include <tim.h>
 #include <gpio.h>
-#include <hcsr04.h>
 #include <i2c.h>
 
 
 /* SENSOR LIBRARIES */
 #include <mpu6050.h>
+#include <hcsr04.h>
 
 
 #endif /* INC_MAIN_H_ */

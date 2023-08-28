@@ -1,1 +1,2 @@
-../Libraries/Src/hcsr04.c:11:10:HCSR04_Read	16	static
+../Libraries/Src/hcsr04.c:11:6:HCSR04_Distance	16	static
+../Libraries/Src/hcsr04.c:46:6:HCSR04_Read	8	static

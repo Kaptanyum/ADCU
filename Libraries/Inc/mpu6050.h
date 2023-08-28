@@ -3,6 +3,7 @@
 
 
 #include <stm32f4xx_hal.h>
+#include <math.h>
 
 #define WHO_AM_I 0x75
 #define PWR_MGMT_1 0x6B
@@ -30,27 +31,51 @@ typedef struct MPU6050_Raw
 	int16_t Accel_X_Raw;
 	int16_t Accel_Y_Raw;
 	int16_t Accel_Z_Raw;
-	float Ax;
-	float Ay;
-	float Az;
+	double Ax;
+	double Ay;
+	double Az;
 
 	int16_t Gyro_X_Raw;
 	int16_t Gyro_Y_Raw;
 	int16_t Gyro_Z_Raw;
-	float Gx;
-	float Gy;
-	float Gz;
+	double Gx;
+	double Gy;
+	double Gz;
 
 	int16_t Temp_Raw;
 } MPU6050_Raw;
+
+typedef struct MPU6050_Euler
+{
+	double arx;		// ACCEL TAN CALC
+	double ary;
+	double arz;
+
+	double gsx;		// GX / GYROSCALE
+	double gsy;
+	double gsz;
+
+	double grx;		//
+	double gry;		//
+	double grz;		//
+
+	double rx;		// X ANGLE
+	double ry;		// Y ANGLE
+	double rz;		// Z ANGLE
+} MPU6050_Euler;
+
+//typedef struct Kalman
+//{
+//
+//} Kalman;
 
 extern uint8_t check;
 extern uint8_t data;
 
 void MPU6050_Init(I2C_HandleTypeDef *hi2c);
-void MPU6050_ReadGyro(I2C_HandleTypeDef *hi2c, MPU6050_Raw *Struct);
-void MPU6050_ReadAccel(I2C_HandleTypeDef *hi2c, MPU6050_Raw *Struct);
-void MPU6050_ReadTemp(I2C_HandleTypeDef *hi2c, MPU6050_Raw *Struct);
-
+void MPU6050_Read_Gyro(I2C_HandleTypeDef *hi2c, MPU6050_Raw *Struct);
+void MPU6050_Read_Accel(I2C_HandleTypeDef *hi2c, MPU6050_Raw *Struct);
+void MPU6050_Read_Temp(I2C_HandleTypeDef *hi2c, MPU6050_Raw *Struct);
+void MPU6050_Read_Data(I2C_HandleTypeDef *hi2c, MPU6050_Raw *Data, MPU6050_Euler *Angle);
 
 #endif /* INC_MPU6050_H_ */

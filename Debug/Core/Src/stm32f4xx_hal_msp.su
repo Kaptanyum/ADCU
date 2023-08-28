@@ -3,3 +3,4 @@
 ../Core/Src/stm32f4xx_hal_msp.c:76:6:HAL_PPP_MspInit	4	static
 ../Core/Src/stm32f4xx_hal_msp.c:87:6:HAL_PPP_MspDeInit	4	static
 ../Core/Src/stm32f4xx_hal_msp.c:92:6:HAL_I2C_MspInit	40	static
+../Core/Src/stm32f4xx_hal_msp.c:106:6:HAL_TIM_Base_MspInit	48	static

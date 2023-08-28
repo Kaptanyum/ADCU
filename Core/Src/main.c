@@ -2,29 +2,38 @@
 
 /*	TO DO LIST
 
-X	--> HCSR04 DRIVER
+C	--> HCSR04 DRIVER
 	--> IR DRIVER
-X	--> MPU6050 IMU DRIVER	-> RAW DATA
+C	--> MPU6050 IMU DRIVER	-> RAW DATA
 	--> NEO-6M GPS DRIVER	-> RAW DATA
 
-X	--> GPIO DRIVER
-X	--> I2C DRIVER
-	--> PWM DRIVER
+C	--> GPIO DRIVER
+C	--> I2C DRIVER
+	--> PWM DRIVER | OPEN LOOP MOTOR DRIVE (VIA MOSFET DRIVER)
 	--> UART DRIVER
 	--> CAN DRIVER
 
-	--> DMA DRIVER
-	--> FLASH DRIVER
+P	--> DMA DRIVER
+X	--> FLASH DRIVER
 
-	--> HCSR04 CAPTURE COMPARE INTERRUPT DRIVER UPGRADE
-	--> HCSR04 MULTI DATA READING
+P	--> HCSR04 CAPTURE COMPARE INTERRUPT DRIVER UPGRADE
+P	--> HCSR04 MULTI DATA READING
+	--> HCSR04 DATA FILTERING
 	--> HCSR04 + MOTOR FUSION
 	--> IMU + GPS SENSOR FUSION
+	--> IMU EULER ANGLES | QUATERNIONS
+	--> IMU EXTENDED KALMAN FILTER OR COMPEMENTARY FILTER
+	--> MPU6050 OFFSET CONFIGS
 
+	--> TIM2 DEACTIVATION
+
+	C: COMPLETED
+	P: IN PROGRESS
+	X: CANCELLED
 */
 
 
-uint16_t distance;
+uint8_t _distance;
 MPU6050_Raw _MPU6050_Raw;
 
 
@@ -37,21 +46,22 @@ int main(void)
 	HAL_Init();
 	SystemClock_Config();
 	PeripInit();
+	HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
 
 	while (1)
 	{
-		distance = HCSR04_Read(&htim2);
-		MPU6050_ReadAccel(&hi2c1, &_MPU6050_Raw);
-		MPU6050_ReadGyro(&hi2c1, &_MPU6050_Raw);
-		MPU6050_ReadTemp(&hi2c1, &_MPU6050_Raw);
+		HCSR04_Read();
 		HAL_Delay(100);
+//		MPU6050_Read_Accel(&hi2c1, &_MPU6050_Raw);
+//		MPU6050_Read_Gyro(&hi2c1, &_MPU6050_Raw);
+//		MPU6050_Read_Temp(&hi2c1, &_MPU6050_Raw);
 	}
 }
 
 void PeripInit(void)
 {
-	TIM2_Init();
 	GPIO_Init();
+	TIM1_Init();
 	I2C1_Init();
 	MPU6050_Init(&hi2c1);
 }
@@ -79,4 +89,9 @@ void SystemClock_Config(void)
 	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
 	RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 	HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2);
+}
+
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+	HCSR04_Distance(htim);
 }

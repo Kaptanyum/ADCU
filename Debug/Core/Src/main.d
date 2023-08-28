@@ -29,8 +29,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Libraries/Inc/tim.h ../Libraries/Inc/gpio.h ../Libraries/Inc/hcsr04.h \
- ../Libraries/Inc/i2c.h ../Libraries/Inc/mpu6050.h
+ ../Libraries/Inc/tim.h ../Libraries/Inc/gpio.h ../Libraries/Inc/i2c.h \
+ ../Libraries/Inc/mpu6050.h ../Libraries/Inc/hcsr04.h
 ../Core/Inc/main.h:
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f411xe.h:
 ../Drivers/CMSIS/Include/core_cm4.h:
@@ -64,6 +64,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Libraries/Inc/tim.h:
 ../Libraries/Inc/gpio.h:
-../Libraries/Inc/hcsr04.h:
 ../Libraries/Inc/i2c.h:
 ../Libraries/Inc/mpu6050.h:
+../Libraries/Inc/hcsr04.h:

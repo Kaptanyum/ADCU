@@ -1,4 +1,4 @@
-../Libraries/Src/mpu6050.c:12:6:MPU6050_Init	32	static
-../Libraries/Src/mpu6050.c:29:6:MPU6050_ReadAccel	40	static
-../Libraries/Src/mpu6050.c:45:6:MPU6050_ReadGyro	40	static
-../Libraries/Src/mpu6050.c:61:6:MPU6050_ReadTemp	40	static
+../Libraries/Src/mpu6050.c:21:6:MPU6050_Init	32	static
+../Libraries/Src/mpu6050.c:38:6:MPU6050_Read_Accel	40	static
+../Libraries/Src/mpu6050.c:54:6:MPU6050_Read_Gyro	40	static
+../Libraries/Src/mpu6050.c:70:6:MPU6050_Read_Temp	40	static
